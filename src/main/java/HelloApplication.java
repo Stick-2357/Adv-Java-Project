@@ -1,20 +1,25 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         //HBox pane = new HBox(10);
@@ -42,13 +47,9 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
-
-    class RosterHandlerClass implements EventHandler<ActionEvent>{
+    class RosterHandlerClass implements EventHandler<ActionEvent> {
         @Override
-        public void handle(ActionEvent e){
+        public void handle(ActionEvent e) {
             TextField firstName = new TextField();
             TextField lastName = new TextField();
             TextField middleInit = new TextField();
@@ -83,9 +84,9 @@ public class HelloApplication extends Application {
         }
     }
 
-    class RosterEditHandlerClass implements EventHandler<ActionEvent>{
+    class RosterEditHandlerClass implements EventHandler<ActionEvent> {
         @Override
-        public void handle(ActionEvent e){
+        public void handle(ActionEvent e) {
             Stage stage3 = new Stage();
 
             Button but1 = new Button("Child 1");
@@ -106,19 +107,19 @@ public class HelloApplication extends Application {
         }
     }
 
-    class TripHandlerClass implements EventHandler<ActionEvent>{
+    class TripHandlerClass implements EventHandler<ActionEvent> {
         @Override
-        public void handle(ActionEvent e){
+        public void handle(ActionEvent e) {
             Stage stage4 = new Stage();
 
-            RadioButton but1 = new RadioButton("Child 1");
-            RadioButton but2 = new RadioButton("Child 2");
-            RadioButton but3 = new RadioButton("Child 3");
-            RadioButton but4 = new RadioButton("Child 4");
-            RadioButton but5 = new RadioButton("Child 5");
-            RadioButton but6 = new RadioButton("Child 6");
-            RadioButton but7 = new RadioButton("Child 7");
-            RadioButton but8 = new RadioButton("Child 8");
+            CheckBox but1 = new CheckBox("Child 1");
+            CheckBox but2 = new CheckBox("Child 2");
+            CheckBox but3 = new CheckBox("Child 3");
+            CheckBox but4 = new CheckBox("Child 4");
+            CheckBox but5 = new CheckBox("Child 5");
+            CheckBox but6 = new CheckBox("Child 6");
+            CheckBox but7 = new CheckBox("Child 7");
+            CheckBox but8 = new CheckBox("Child 8");
             Button select = new Button("Generate Route");
 
             VBox pane4 = new VBox(but1, but2, but3, but4, but5, but6, but7, but8, select);
