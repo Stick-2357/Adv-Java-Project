@@ -20,7 +20,8 @@ public class OptimizeRoute {
 
     public static List<Location> getOptimizedRoutes(String[] inputLocations) throws IOException {
         // build http request
-        String stringURL = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=e06v9nqvPG3ALqr1Tet0bCgNSduBDdRx&json={\"locations\":[\"" + String.join("\",\"", inputLocations) + "\"]}";
+        String mapquestKey = "e06v9nqvPG3ALqr1Tet0bCgNSduBDdRx"; // TODO: Move to config file
+        String stringURL = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=" + mapquestKey + "&json={\"locations\":[\"" + String.join("\",\"", inputLocations) + "\"]}";
 
         // call http request
         HttpURLConnection connection = (HttpURLConnection) new URL(stringURL).openConnection();

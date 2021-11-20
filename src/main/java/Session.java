@@ -18,7 +18,7 @@ public class Session {
     Database database;
 
     public Session() throws SQLException, ClassNotFoundException {
-        database = new Database("root", "L$839ppj!");
+        database = new Database("root", "L$839ppj!"); // TODO: Move to config file
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
