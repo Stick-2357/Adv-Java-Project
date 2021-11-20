@@ -1,24 +1,24 @@
 package route.objects;
 
 public class Location {
-    public boolean dragPoint;
-    public DisplayLatLng displayLatLng;
-    public String adminArea4;
-    public String adminArea5;
-    public String postalCode;
-    public String adminArea1;
-    public String adminArea3;
-    public String type;
-    public String sideOfStreet;
-    public String geocodeQualityCode;
-    public String adminArea4Type;
-    public int linkId;
-    public String street;
-    public String adminArea5Type;
-    public String geocodeQuality;
-    public String adminArea1Type;
-    public String adminArea3Type;
-    public LatLng latLng;
+    boolean dragPoint;
+    DisplayLatLng displayLatLng;
+    String adminArea4;
+    String adminArea5;
+    String postalCode;
+    String adminArea1;
+    String adminArea3;
+    String type;
+    String sideOfStreet;
+    String geocodeQualityCode;
+    String adminArea4Type;
+    int linkId;
+    String street;
+    String adminArea5Type;
+    String geocodeQuality;
+    String adminArea1Type;
+    String adminArea3Type;
+    LatLng latLng;
 
     public LatLng getLatLng() {
         return latLng;

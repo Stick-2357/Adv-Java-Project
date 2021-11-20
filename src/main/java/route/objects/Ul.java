@@ -1,6 +1,6 @@
 package route.objects;
 
 public class Ul {
-    public double lng;
-    public double lat;
+    double lng;
+    double lat;
 }

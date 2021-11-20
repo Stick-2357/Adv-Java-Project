@@ -1,7 +1,7 @@
 package route.objects;
 
 public class Copyright {
-    public String imageAltText;
-    public String imageUrl;
-    public String text;
+    String imageAltText;
+    String imageUrl;
+    String text;
 }

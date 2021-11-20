@@ -1,16 +1,8 @@
 package route.objects;
 
 public class LatLng {
-    public double lng;
-    public double lat;
-
-    public double getLat() {
-        return lat;
-    }
-
-    public double getLng() {
-        return lng;
-    }
+    double lng;
+    double lat;
 
     @Override
     public String toString() {
