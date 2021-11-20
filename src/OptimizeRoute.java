@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class OptimizeRoute {
     public static void main(String[] args) throws IOException {
@@ -11,24 +12,22 @@ public class OptimizeRoute {
     }
 
     public static String[] getOptimizedRoutes(String[] inputLocations) throws IOException {
-        StringBuilder stringURL = new StringBuilder("http://www.mapquestapi.com/directions/v2/optimizedroute?key=e06v9nqvPG3ALqr1Tet0bCgNSduBDdRx&json={\"locations\":[");
-        stringURL.append("\"").append(inputLocations[0]).append("\"");
-        for (int i = 1; i < inputLocations.length; i++) {
-            String inputLocation = inputLocations[i];
-            stringURL.append(",\"").append(inputLocation).append("\"");
-        }
-        stringURL.append("]}");
+        // build http request
+        String stringURL = Arrays.stream(inputLocations, 1, inputLocations.length).map(inputLocation -> ",\"" + inputLocation + "\"").collect(Collectors.joining("", "http://www.mapquestapi.com/directions/v2/optimizedroute?key=e06v9nqvPG3ALqr1Tet0bCgNSduBDdRx&json={\"locations\":[" + "\"" + inputLocations[0] + "\"", "]}"));
 
-        URL url = new URL(stringURL.toString());
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        int status = con.getResponseCode();
+        // call http request
+        HttpURLConnection connection = (HttpURLConnection) new URL(stringURL).openConnection();
+        int status = connection.getResponseCode();
 
-        if (status == 200) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine;
+        if (status == 200) { // if http returned correctly
+            // read all the json as a string
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            connection.disconnect();
             StringBuilder content = new StringBuilder();
-            while ((inputLine = in.readLine()) != null) content.append(inputLine);
+            in.lines().forEach(content::append);
             in.close();
+
+            // get locations
             int indexOfLocations = content.indexOf("\"locations\":");
             String locationsJSON = content.substring(indexOfLocations, content.indexOf("]", indexOfLocations) + 1);
             int lastIndex = 0;
@@ -39,7 +38,6 @@ public class OptimizeRoute {
                 locationsLngLat[i] = locationsJSON.substring(indexOfNextLatLngStart, indexOfNextLatLngEnd);
                 lastIndex = indexOfNextLatLngEnd;
             }
-            con.disconnect();
             return locationsLngLat;
         }
         return new String[0];
