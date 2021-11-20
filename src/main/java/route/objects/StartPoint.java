@@ -1,14 +1,9 @@
 package route.objects;
 
+import lombok.Data;
+
+@Data
 public class StartPoint {
     double lng;
     double lat;
-
-    @Override
-    public String toString() {
-        return "StartPoint{" +
-                "lng=" + lng +
-                ", lat=" + lat +
-                '}';
-    }
 }

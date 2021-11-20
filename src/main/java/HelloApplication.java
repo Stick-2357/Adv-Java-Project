@@ -13,18 +13,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
-        //HBox pane = new HBox(10);
-        //pane.setAlignment(Pos.CENTER);
-
+    public void start(Stage stage) {
         Button create = new Button("Create Roster");
         Button edit = new Button("Edit Roster");
         Button trip = new Button("Create Trip");
@@ -47,7 +42,7 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    class RosterHandlerClass implements EventHandler<ActionEvent> {
+    static class RosterHandlerClass implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent e) {
             TextField firstName = new TextField();
@@ -84,7 +79,7 @@ public class HelloApplication extends Application {
         }
     }
 
-    class RosterEditHandlerClass implements EventHandler<ActionEvent> {
+    static class RosterEditHandlerClass implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent e) {
             Stage stage3 = new Stage();
@@ -107,7 +102,7 @@ public class HelloApplication extends Application {
         }
     }
 
-    class TripHandlerClass implements EventHandler<ActionEvent> {
+    static class TripHandlerClass implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent e) {
             Stage stage4 = new Stage();

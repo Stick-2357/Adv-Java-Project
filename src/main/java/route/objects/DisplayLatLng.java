@@ -1,14 +1,9 @@
 package route.objects;
 
+import lombok.Data;
+
+@Data
 public class DisplayLatLng {
     double lng;
     double lat;
-
-    @Override
-    public String toString() {
-        return "DisplayLatLng{" +
-                "lng=" + lng +
-                ", lat=" + lat +
-                '}';
-    }
 }

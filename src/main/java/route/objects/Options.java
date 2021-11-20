@@ -1,7 +1,10 @@
 package route.objects;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class Options {
     List<Object> arteryWeights;
     int cyclingRoadFactor;
@@ -36,41 +39,4 @@ public class Options {
     int filterZoneFactor;
     String manmaps;
 
-    @Override
-    public String toString() {
-        return "Options{" +
-                "arteryWeights=" + arteryWeights +
-                ", cyclingRoadFactor=" + cyclingRoadFactor +
-                ", timeType=" + timeType +
-                ", useTraffic=" + useTraffic +
-                ", returnLinkDirections=" + returnLinkDirections +
-                ", countryBoundaryDisplay=" + countryBoundaryDisplay +
-                ", enhancedNarrative=" + enhancedNarrative +
-                ", locale='" + locale + '\'' +
-                ", tryAvoidLinkIds=" + tryAvoidLinkIds +
-                ", drivingStyle=" + drivingStyle +
-                ", doReverseGeocode=" + doReverseGeocode +
-                ", generalize=" + generalize +
-                ", mustAvoidLinkIds=" + mustAvoidLinkIds +
-                ", sideOfStreetDisplay=" + sideOfStreetDisplay +
-                ", routeType='" + routeType + '\'' +
-                ", avoidTimedConditions=" + avoidTimedConditions +
-                ", routeNumber=" + routeNumber +
-                ", shapeFormat='" + shapeFormat + '\'' +
-                ", maxWalkingDistance=" + maxWalkingDistance +
-                ", destinationManeuverDisplay=" + destinationManeuverDisplay +
-                ", transferPenalty=" + transferPenalty +
-                ", narrativeType='" + narrativeType + '\'' +
-                ", walkingSpeed=" + walkingSpeed +
-                ", urbanAvoidFactor=" + urbanAvoidFactor +
-                ", stateBoundaryDisplay=" + stateBoundaryDisplay +
-                ", unit='" + unit + '\'' +
-                ", highwayEfficiency=" + highwayEfficiency +
-                ", maxLinkId=" + maxLinkId +
-                ", maneuverPenalty=" + maneuverPenalty +
-                ", avoidTripIds=" + avoidTripIds +
-                ", filterZoneFactor=" + filterZoneFactor +
-                ", manmaps='" + manmaps + '\'' +
-                '}';
-    }
 }
