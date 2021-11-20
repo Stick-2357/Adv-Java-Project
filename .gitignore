@@ -10,3 +10,5 @@
 /httpRequests/
 /out/production/Adv-Java-Project/
 /target/
+
+/src/main/resources/config.properties
