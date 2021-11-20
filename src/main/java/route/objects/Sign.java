@@ -6,4 +6,15 @@ public class Sign {
     int type;
     String url;
     int direction;
+
+    @Override
+    public String toString() {
+        return "Sign{" +
+                "extraText='" + extraText + '\'' +
+                ", text='" + text + '\'' +
+                ", type=" + type +
+                ", url='" + url + '\'' +
+                ", direction=" + direction +
+                '}';
+    }
 }

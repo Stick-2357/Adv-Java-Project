@@ -3,7 +3,7 @@ package route;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import route.objects.Location;
-import route.objects.ReturnObject;
+import route.objects.Root;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,12 +31,12 @@ public class OptimizeRoute {
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
-            ReturnObject returnObject = gson.fromJson(in, ReturnObject.class);
+            Root root = gson.fromJson(in, Root.class);
 
             in.close();
             connection.disconnect();
 
-            return returnObject.getRoute().getLocations();
+            return root.getRoute().getLocations();
         }
         return new ArrayList<>();
     }

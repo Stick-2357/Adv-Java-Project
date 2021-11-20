@@ -1,5 +1,5 @@
 import java.sql.SQLException;
-import java.sql.*;
+import java.sql.Statement;
 
 /*
 Pseudocode
@@ -17,16 +17,20 @@ Pseudocode
 public class Session {
     Database database;
 
-    public Session() throws SQLException, ClassNotFoundException{
+    public Session() throws SQLException, ClassNotFoundException {
         database = new Database("root", "L$839ppj!");
+    }
+
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        Session session = new Session();
+        Profile alex = new Profile("alex", "111-222-3344", "totallylegit@gmail.com", "123 Oak Street");
+//        session.addProfile(alex);
     }
 
     public void addProfile(Profile profile) {
         try {
             Statement statement = database.getStatement();
-
-        }
-        catch (SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
@@ -45,11 +49,5 @@ public class Session {
 
     public String generateAttendance() {
         return "";
-    }
-
-    public static void main(String[] args) throws SQLException, ClassNotFoundException{
-        Session session = new Session();
-        Profile alex = new Profile("alex", "111-222-3344", "totallylegit@gmail.com", "123 Oak Street");
-//        session.addProfile(alex);
     }
 }

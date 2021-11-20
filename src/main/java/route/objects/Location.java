@@ -26,25 +26,24 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{" +
-                "dragPoint=" + dragPoint +
+        return "Location{dragPoint=" + dragPoint +
                 ", displayLatLng=" + displayLatLng +
-                ", adminArea4='" + adminArea4 + '\'' +
-                ", adminArea5='" + adminArea5 + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", adminArea1='" + adminArea1 + '\'' +
-                ", adminArea3='" + adminArea3 + '\'' +
-                ", type='" + type + '\'' +
-                ", sideOfStreet='" + sideOfStreet + '\'' +
-                ", geocodeQualityCode='" + geocodeQualityCode + '\'' +
-                ", adminArea4Type='" + adminArea4Type + '\'' +
-                ", linkId=" + linkId +
-                ", street='" + street + '\'' +
-                ", adminArea5Type='" + adminArea5Type + '\'' +
-                ", geocodeQuality='" + geocodeQuality + '\'' +
-                ", adminArea1Type='" + adminArea1Type + '\'' +
-                ", adminArea3Type='" + adminArea3Type + '\'' +
-                ", latLng=" + latLng +
+                ", adminArea4='" + adminArea4 +
+                "', adminArea5='" + adminArea5 +
+                "', postalCode='" + postalCode +
+                "', adminArea1='" + adminArea1 +
+                "', adminArea3='" + adminArea3 +
+                "', type='" + type +
+                "', sideOfStreet='" + sideOfStreet +
+                "', geocodeQualityCode='" + geocodeQualityCode +
+                "', adminArea4Type='" + adminArea4Type +
+                "', linkId=" + linkId +
+                ", street='" + street +
+                "', adminArea5Type='" + adminArea5Type +
+                "', geocodeQuality='" + geocodeQuality +
+                "', adminArea1Type='" + adminArea1Type +
+                "', adminArea3Type='" + adminArea3Type +
+                "', latLng=" + latLng +
                 '}';
     }
 }

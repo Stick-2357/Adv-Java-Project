@@ -30,5 +30,34 @@ public class Route{
     public List<Location> getLocations() {
         return locations;
     }
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "hasTollRoad=" + hasTollRoad +
+                ", hasBridge=" + hasBridge +
+                ", boundingBox=" + boundingBox +
+                ", distance=" + distance +
+                ", hasTimedRestriction=" + hasTimedRestriction +
+                ", hasTunnel=" + hasTunnel +
+                ", hasHighway=" + hasHighway +
+                ", computedWaypoints=" + computedWaypoints +
+                ", routeError=" + routeError +
+                ", formattedTime='" + formattedTime + '\'' +
+                ", sessionId='" + sessionId + '\'' +
+                ", hasAccessRestriction=" + hasAccessRestriction +
+                ", realTime=" + realTime +
+                ", hasSeasonalClosure=" + hasSeasonalClosure +
+                ", hasCountryCross=" + hasCountryCross +
+                ", fuelUsed=" + fuelUsed +
+                ", legs=" + legs +
+                ", options=" + options +
+                ", locations=" + locations +
+                ", time=" + time +
+                ", hasUnpaved=" + hasUnpaved +
+                ", locationSequence=" + locationSequence +
+                ", hasFerry=" + hasFerry +
+                '}';
+    }
 }
 

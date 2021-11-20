@@ -6,9 +6,6 @@ public class LatLng {
 
     @Override
     public String toString() {
-        return "LatLng{" +
-                "lng=" + lng +
-                ", lat=" + lat +
-                '}';
+        return "LatLng{lng=" + lng + ", lat=" + lat + '}';
     }
 }
