@@ -1,9 +1,9 @@
-package route.objects;
+package objects;
 
 import lombok.Data;
 
 @Data
-public class LatLng {
+public class Ul {
     double lng;
     double lat;
 }

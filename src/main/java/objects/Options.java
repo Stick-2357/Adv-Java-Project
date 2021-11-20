@@ -1,4 +1,4 @@
-package route.objects;
+package objects;
 
 import lombok.Data;
 

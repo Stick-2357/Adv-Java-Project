@@ -1,5 +1,7 @@
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 /*
 Pseudocode
@@ -17,11 +19,12 @@ Pseudocode
 public class Session {
     Database database;
 
-    public Session() throws SQLException, ClassNotFoundException {
-        database = new Database("root", "L$839ppj!"); // TODO: Move to config file
+    public Session() throws SQLException, ClassNotFoundException, IOException {
+        Properties props = PropertiesUtil.getProperties();
+        database = new Database(props.getProperty("mysqluser"), props.getProperty("mysqlpass"));
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
         Session session = new Session();
         Profile alex = new Profile("alex", "111-222-3344", "totallylegit@gmail.com", "123 Oak Street");
 //        session.addProfile(alex);

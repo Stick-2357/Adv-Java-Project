@@ -1,9 +1,7 @@
-package route;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import route.objects.Location;
-import route.objects.Root;
+import objects.Location;
+import objects.Root;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class OptimizeRoute {
     public static void main(String[] args) throws IOException {
@@ -20,7 +19,7 @@ public class OptimizeRoute {
 
     public static List<Location> getOptimizedRoutes(String[] inputLocations) throws IOException {
         // build http request
-        String mapquestKey = "e06v9nqvPG3ALqr1Tet0bCgNSduBDdRx"; // TODO: Move to config file
+        String mapquestKey = PropertiesUtil.getProperties().getProperty("mapquestkey");
         String stringURL = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=" + mapquestKey + "&json={\"locations\":[\"" + String.join("\",\"", inputLocations) + "\"]}";
 
         // call http request
