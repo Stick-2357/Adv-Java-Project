@@ -13,19 +13,38 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class HelloApplication extends Application {
+    public static Session session;
+
     public static void main(String[] args) {
         launch();
     }
 
     @Override
     public void start(Stage stage) {
+        // TODO: Attempt to connect to a server
+        try {
+            session = new Session();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // TODO: Continue to retry until connected
+
         Button create = new Button("Create Roster");
         Button edit = new Button("Edit Roster");
         Button trip = new Button("Create Trip");
 
         HBox pane = new HBox(create, edit, trip);
         pane.setAlignment(Pos.CENTER);
+
+        // TODO: Do not show options until connected to a server
 
         RosterHandlerClass roster = new RosterHandlerClass();
         create.setOnAction(roster);
@@ -65,12 +84,21 @@ public class HelloApplication extends Application {
             pane2.add(lastName, 1, 2);
             pane2.add(new Label("Address:"), 0, 3);
             pane2.add(address, 1, 3);
-            pane2.add(new Label("Emergency Contact Relation:"), 0, 4);
+            pane2.add(new Label("Emergency Contact Relation:"), 0, 4); // TODO: Remove this field? May not be needed
             pane2.add(emergencyRelation, 1, 4);
+            // TODO: Add email field? May not need to strore email
             pane2.add(new Label("Emergency Contact:"), 0, 5);
             pane2.add(emergencyContact, 1, 5);
             Button create = new Button("Add to Roster");
             pane2.add(create, 1, 6);
+
+            create.setOnAction((event -> {
+                // TODO: Add input validation
+                // TODO: Convert input to profile
+                // name, emergencyNum, email, address
+                Profile newProfile = new Profile("", "", "", "");
+                session.addProfile(newProfile);
+            }));
 
             Scene scene = new Scene(pane2);
             stage2.setTitle("Add to Roster Information");
@@ -84,6 +112,8 @@ public class HelloApplication extends Application {
         public void handle(ActionEvent e) {
             Stage stage3 = new Stage();
 
+            // TODO: populate from getAllProfiles
+
             Button but1 = new Button("Child 1");
             Button but2 = new Button("Child 2");
             Button but3 = new Button("Child 3");
@@ -92,6 +122,11 @@ public class HelloApplication extends Application {
             Button but6 = new Button("Child 6");
             Button but7 = new Button("Child 7");
             Button but8 = new Button("Child 8");
+
+            // TODO: Implement save button
+            // TODO: Implement editable fields
+            // TODO: Fill fields with child data on select
+            // TODO: Implement input validation
 
             VBox pane3 = new VBox(but1, but2, but3, but4, but5, but6, but7, but8);
 
@@ -107,6 +142,8 @@ public class HelloApplication extends Application {
         public void handle(ActionEvent e) {
             Stage stage4 = new Stage();
 
+            // TODO: populate from getAllProfiles
+
             CheckBox but1 = new CheckBox("Child 1");
             CheckBox but2 = new CheckBox("Child 2");
             CheckBox but3 = new CheckBox("Child 3");
@@ -116,6 +153,10 @@ public class HelloApplication extends Application {
             CheckBox but7 = new CheckBox("Child 7");
             CheckBox but8 = new CheckBox("Child 8");
             Button select = new Button("Generate Route");
+
+            select.setOnAction((event) -> {
+               // TODO: Call GetOptimizedRoute passing selected child locations
+            });
 
             VBox pane4 = new VBox(but1, but2, but3, but4, but5, but6, but7, but8, select);
 

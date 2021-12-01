@@ -30,6 +30,8 @@ public class Session {
 //        session.addProfile(alex);
     }
 
+    // TODO: Add a getAllProfiles Method
+
     public void addProfile(Profile profile) {
         try {
             Statement statement = database.getStatement();
@@ -38,11 +40,11 @@ public class Session {
         }
     }
 
-    public void editProfile() {
+    public void editProfile(Profile profile) {
 
     }
 
-    public void deleteProfile() {
+    public void deleteProfile(Profile profile) {
 
     }
 
