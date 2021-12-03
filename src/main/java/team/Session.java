@@ -58,9 +58,7 @@ public class Session {
                     System.out.println(request);
                     switch (request.getRequestName()) {
                         case "Get Roster": {
-                            System.out.println("Got roster request");
                             outputToClient.writeObject(getAllProfiles());
-                            System.out.println("sent roster");
                             break;
                         }
                         case "New Child": {
@@ -149,12 +147,4 @@ public class Session {
             ex.printStackTrace();
         }
     }
-
-//    public void editRoute() {
-//
-//    }
-//
-//    public String generateAttendance() {
-//        return "";
-//    }
 }

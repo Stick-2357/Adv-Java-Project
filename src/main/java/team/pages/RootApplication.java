@@ -68,10 +68,8 @@ public class RootApplication extends Application {
     }
 
     public static void refreshRoster() throws IOException, ClassNotFoundException {
-        System.out.println("Waiting for roster");
         outputToServer.writeObject(new GetRosterRequest());
         roster = (ArrayList<Profile>) inputFromServer.readObject();
-        System.out.println("Got info back from server");
     }
 
     public static void addChild(Profile profile) throws IOException, ClassNotFoundException {

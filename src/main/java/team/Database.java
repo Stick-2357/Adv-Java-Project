@@ -5,12 +5,11 @@ import java.sql.*;
 public class Database {
     Connection conn;
 
-    public Database(String user, String pass) throws SQLException, ClassNotFoundException {
+    public Database(String user, String pass) throws ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         System.out.println("Driver loaded");
 
         System.out.println("Connecting to a selected database...");
-        // Open a connection
 
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/route_manager", user, pass);
