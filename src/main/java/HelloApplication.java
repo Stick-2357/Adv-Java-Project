@@ -1,7 +1,6 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,15 +8,18 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HelloApplication extends Application {
-    List<Child> roster = new ArrayList<Child>();
+
+    public static void main(String[] args) {
+        launch();
+    }
+    List<Child> roster = new ArrayList<>();
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         //HBox pane = new HBox(10);
         //pane.setAlignment(Pos.CENTER);
 
@@ -41,10 +43,6 @@ public class HelloApplication extends Application {
         stage.setTitle("Main Menu");
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 
     class RosterHandlerClass implements EventHandler<ActionEvent>{
@@ -73,24 +71,21 @@ public class HelloApplication extends Application {
             Button create = new Button("Add to Roster");
             pane2.add(create, 1, 6);
 
-            create.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    named.setText("");
+            create.setOnAction(actionEvent -> {
+                named.setText("");
 
-                    Child kid = new Child(name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
+                Child kid = new Child(name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
 
-                    roster.add(kid);
+                roster.add(kid);
 
-                    name.clear();
-                    address.clear();
-                    emergencyContact.clear();
-                    emergencyEmail.clear();
+                name.clear();
+                address.clear();
+                emergencyContact.clear();
+                emergencyEmail.clear();
 
-                    named.setText(kid.GetName() + " added to roster.");
+                named.setText(kid.GetName() + " added to roster.");
 
-                    pane2.add(named, 0, 6);
-                }
+                pane2.add(named, 0, 6);
             });
 
             Scene scene = new Scene(pane2);
@@ -105,9 +100,8 @@ public class HelloApplication extends Application {
         public void handle(ActionEvent e){
             Stage stage3 = new Stage();
 
-            Child helper = new Child();
-            Button kid = new Button();
-            int crap = 0;
+            Child helper;
+            Button kid;
 
             GridPane pane3 = new GridPane();
             pane3.setAlignment(Pos.CENTER);
@@ -122,57 +116,51 @@ public class HelloApplication extends Application {
 
                 Button finalKid = kid;
 
-                kid.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        Child helped = new Child();
-                        String names = finalKid.getText();
-                        int needed = 0;
+                kid.setOnAction(actionEvent -> {
+                    Child helped = new Child();
+                    String names = finalKid.getText();
+                    int needed = 0;
 
-                        for(int i = 0; i < roster.size(); i++){
-                            helped = roster.get(i);
+                    for(int i1 = 0; i1 < roster.size(); i1++){
+                        helped = roster.get(i1);
 
-                            if(names == helped.GetName()){
-                                needed = i;
-                                break;
-                            }
+                        if(names == helped.GetName()){
+                            needed = i1;
+                            break;
                         }
-
-                        final int maybe = needed;
-
-                        TextField name = new TextField(helped.GetName());
-                        TextField address = new TextField(helped.GetAddress());
-                        TextField emergencyContact = new TextField(helped.GetPhone());
-                        TextField emergencyEmail = new TextField(helped.GetEmail());
-
-                        pane3.getChildren().clear();
-                        //Clears the pane to allow next options to appear.
-
-                        pane3.add(new Label("Child Name:"), 0, 0);
-                        pane3.add(name, 1, 0);
-                        pane3.add(new Label("Address:"), 0, 1);
-                        pane3.add(address, 1, 1);
-                        pane3.add(new Label("Emergency Phone Number:"), 0, 2);
-                        pane3.add(emergencyContact, 1, 2);
-                        pane3.add(new Label("Emergency Email Address:"), 0, 3);
-                        pane3.add(emergencyEmail, 1, 3);
-                        Button save = new Button("Save Edits");
-                        pane3.add(save, 1, 6);
-
-                        save.setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent actionEvent) {
-                                Child thisOne = new Child(name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
-
-                                roster.set(maybe, thisOne);
-
-                                name.clear();
-                                address.clear();
-                                emergencyContact.clear();
-                                emergencyEmail.clear();
-                            }
-                        });
                     }
+
+                    final int maybe = needed;
+
+                    TextField name = new TextField(helped.GetName());
+                    TextField address = new TextField(helped.GetAddress());
+                    TextField emergencyContact = new TextField(helped.GetPhone());
+                    TextField emergencyEmail = new TextField(helped.GetEmail());
+
+                    pane3.getChildren().clear();
+                    //Clears the pane to allow next options to appear.
+
+                    pane3.add(new Label("Child Name:"), 0, 0);
+                    pane3.add(name, 1, 0);
+                    pane3.add(new Label("Address:"), 0, 1);
+                    pane3.add(address, 1, 1);
+                    pane3.add(new Label("Emergency Phone Number:"), 0, 2);
+                    pane3.add(emergencyContact, 1, 2);
+                    pane3.add(new Label("Emergency Email Address:"), 0, 3);
+                    pane3.add(emergencyEmail, 1, 3);
+                    Button save = new Button("Save Edits");
+                    pane3.add(save, 1, 6);
+
+                    save.setOnAction(actionEvent1 -> {
+                        Child thisOne = new Child(name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
+
+                        roster.set(maybe, thisOne);
+
+                        name.clear();
+                        address.clear();
+                        emergencyContact.clear();
+                        emergencyEmail.clear();
+                    });
                 });
             }
 
@@ -188,6 +176,8 @@ public class HelloApplication extends Application {
         public void handle(ActionEvent e){
             Stage stage4 = new Stage();
 
+            // TODO: populate from getAllProfiles
+
             CheckBox but1 = new CheckBox("Child 1");
             CheckBox but2 = new CheckBox("Child 2");
             CheckBox but3 = new CheckBox("Child 3");
@@ -197,6 +187,10 @@ public class HelloApplication extends Application {
             CheckBox but7 = new CheckBox("Child 7");
             CheckBox but8 = new CheckBox("Child 8");
             Button select = new Button("Generate Route");
+
+            select.setOnAction((event) -> {
+               // TODO: Call GetOptimizedRoute passing selected child locations
+            });
 
             VBox pane4 = new VBox(but1, but2, but3, but4, but5, but6, but7, but8, select);
 
