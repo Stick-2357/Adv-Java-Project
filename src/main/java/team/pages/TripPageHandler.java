@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import team.OptimizeRoute;
 import team.Profile;
 
 import java.awt.*;
@@ -42,7 +43,12 @@ public class TripPageHandler implements EventHandler<ActionEvent> {
                     }
                 }
             }
-            System.out.println(selectedChildren);
+            try {
+                System.out.println(selectedChildren);
+                System.out.println(OptimizeRoute.getOptimizedRoutes(selectedChildren));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
 
         VBox pane4 = new VBox(childrenVBox, select);
