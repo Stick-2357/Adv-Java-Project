@@ -67,8 +67,10 @@ public class Session {
                             break;
                         }
                         case "Update Child": {
+                            System.out.println("recieved update request");
                             UpdateChildRequest updateChildRequest = (UpdateChildRequest) request;
                             editProfile(updateChildRequest.getProfile());
+                            System.out.println("Finished");
                             break;
                         }
                         case "Get Route": {
@@ -131,6 +133,7 @@ public class Session {
                     "', email = '" + profile.email +
                     "', address = '" + profile.address +
                     "' WHERE id = " + profile.id;
+            System.out.println(sql);
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             ex.printStackTrace();

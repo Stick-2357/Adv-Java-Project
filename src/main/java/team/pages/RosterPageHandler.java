@@ -14,6 +14,7 @@ import team.Profile;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class RosterPageHandler implements EventHandler<ActionEvent> {
     @Override
@@ -31,7 +32,6 @@ public class RosterPageHandler implements EventHandler<ActionEvent> {
             child = RootApplication.roster.get(i);
 
             childButton = new Button(child.getName()); // make a button
-            // TODO: store DB id in button id
             childButton.setId(child.getId().toString()); // TODO: add null case
 
             pane3.add(childButton, 0, i);
@@ -40,26 +40,14 @@ public class RosterPageHandler implements EventHandler<ActionEvent> {
 
             childButton.setOnAction(actionEvent -> { // on button click
                 // TODO: get child by button id
-                System.out.println(((Button) actionEvent.getSource()).getId());
-                Profile helped = new Profile();
-                String names = finalKid.getText();
-                int needed = 0;
+                int childID = Integer.parseInt(((Button) actionEvent.getSource()).getId());
+                Profile childClicked = RootApplication.roster.stream().filter(c -> c.getId() == childID).collect(Collectors.toList()).get(0);
 
-                for (int i1 = 0; i1 < RootApplication.roster.size(); i1++) {
-                    helped = RootApplication.roster.get(i1);
-
-                    if (Objects.equals(names, helped.getName())) {
-                        needed = i1;
-                        break;
-                    }
-                }
-
-                final int maybe = needed;
-
-                TextField name = new TextField(helped.getName());
-                TextField address = new TextField(helped.getAddress());
-                TextField emergencyContact = new TextField(helped.getEmergencyNum());
-                TextField emergencyEmail = new TextField(helped.getEmail());
+                TextField name = new TextField(childClicked.getName());
+                TextField address = new TextField(childClicked.getAddress());
+                TextField emergencyContact = new TextField(childClicked.getEmergencyNum());
+                TextField emergencyEmail = new TextField(childClicked.getEmail());
+                Label named = new Label();
 
                 pane3.getChildren().clear();
                 //Clears the pane to allow next options to appear.
@@ -72,17 +60,22 @@ public class RosterPageHandler implements EventHandler<ActionEvent> {
                 pane3.add(emergencyContact, 1, 2);
                 pane3.add(new Label("Emergency Email Address:"), 0, 3);
                 pane3.add(emergencyEmail, 1, 3);
+                pane3.add(named, 0, 6);
                 Button save = new Button("Save Edits");
                 pane3.add(save, 1, 6);
 
                 save.setOnAction(actionEvent1 -> {
-                    Profile thisOne = new Profile(null, name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
+                    named.setText("");
+                    Profile thisOne = new Profile(childID, name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
 
                     try {
+                        System.out.println("Sending update request");
                         RootApplication.updateChild(thisOne);
                     } catch (IOException | ClassNotFoundException ex) {
                         ex.printStackTrace();
                     }
+
+                    named.setText(thisOne.getName() + " has been updated.");
 
                     name.clear();
                     address.clear();
@@ -95,6 +88,13 @@ public class RosterPageHandler implements EventHandler<ActionEvent> {
         Scene scene = new Scene(pane3);
         newStage.setTitle("Select Roster Member to Edit");
         newStage.setScene(scene);
+        newStage.setOnCloseRequest((event -> {
+            try {
+                RootApplication.refreshRoster();
+            } catch (IOException | ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        }));
         newStage.show();
     }
 }

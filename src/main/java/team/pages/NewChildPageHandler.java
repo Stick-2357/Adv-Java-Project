@@ -57,8 +57,6 @@ public class NewChildPageHandler implements EventHandler<ActionEvent> {
             emergencyEmail.clear();
 
             named.setText(kid.getName() + " added to roster.");
-
-            pane2.add(named, 0, 6);
         });
 
         Scene scene = new Scene(pane2);
