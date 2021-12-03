@@ -7,10 +7,10 @@ import team.Profile;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class UpdateChildRequest extends AbstractRequest {
-    String requestName = "Update Child";
     Profile profile;
 
     public UpdateChildRequest(Profile profile) {
+        requestName = "Update Child";
         this.profile = profile;
     }
 }

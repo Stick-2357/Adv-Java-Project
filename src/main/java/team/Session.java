@@ -29,6 +29,7 @@ public class Session {
                 while (true) {
                     // Listen for a new connection request
                     Socket socket = serverSocket.accept();
+                    System.out.println("New connection started");
                     new Thread(new HandleAClient(socket)).start();
                 }
             } catch (IOException ex) {
@@ -45,16 +46,21 @@ public class Session {
             this.socket = socket;
         }
 
+        @Override
         public void run() {
             try {
-                ObjectInputStream inputFromClient = new ObjectInputStream(socket.getInputStream());
                 ObjectOutputStream outputToClient = new ObjectOutputStream(socket.getOutputStream());
+                outputToClient.flush();
+                ObjectInputStream inputFromClient = new ObjectInputStream(socket.getInputStream());
 
                 while (true) {
                     AbstractRequest request = (AbstractRequest) inputFromClient.readObject();
+                    System.out.println(request);
                     switch (request.getRequestName()) {
                         case "Get Roster": {
+                            System.out.println("Got roster request");
                             outputToClient.writeObject(getAllProfiles());
+                            System.out.println("sent roster");
                             break;
                         }
                         case "New Child": {
@@ -84,7 +90,6 @@ public class Session {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
         Session session = new Session();
-        System.out.println(session.getAllProfiles());
     }
 
     // TODO: Add a getAllProfiles Method

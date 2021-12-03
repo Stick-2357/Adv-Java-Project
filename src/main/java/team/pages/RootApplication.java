@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class RootApplication extends Application {
     static ArrayList<Profile> roster = new ArrayList<>();
+    static Socket socket;
     static ObjectInputStream inputFromServer;
     static ObjectOutputStream outputToServer;
 
@@ -30,9 +31,13 @@ public class RootApplication extends Application {
     public void start(Stage stage) {
         try {
             // TODO: Continue to reattempt a connection
-            Socket socket = new Socket("localhost", 8000);
-            inputFromServer = new ObjectInputStream(socket.getInputStream());
+            System.out.println("Attempting to connect to server...");
+            socket = new Socket("localhost", 8000);
+            System.out.println("Successfully connected");
             outputToServer = new ObjectOutputStream(socket.getOutputStream());
+            outputToServer.flush();
+            inputFromServer = new ObjectInputStream(socket.getInputStream());
+
 
             // TODO: Go to HomePage when connected
             Button create = new Button("Create Roster");
@@ -55,23 +60,25 @@ public class RootApplication extends Application {
             stage.setTitle("Main Menu");
             stage.setScene(scene);
             stage.show();
-        } catch (IOException e) {
+
+            RootApplication.refreshRoster();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     public static void refreshRoster() throws IOException, ClassNotFoundException {
+        System.out.println("Waiting for roster");
         outputToServer.writeObject(new GetRosterRequest());
         roster = (ArrayList<Profile>) inputFromServer.readObject();
+        System.out.println("Got info back from server");
     }
 
     public static void addChild(Profile profile) throws IOException, ClassNotFoundException {
         outputToServer.writeObject(new NewChildRequest(profile));
-        roster = (ArrayList<Profile>) inputFromServer.readObject();
     }
 
     public static void updateChild(Profile profile) throws IOException, ClassNotFoundException {
         outputToServer.writeObject(new UpdateChildRequest(profile));
-        roster = (ArrayList<Profile>) inputFromServer.readObject();
     }
 }

@@ -11,6 +11,7 @@ public class Database {
 
         System.out.println("Connecting to a selected database...");
         // Open a connection
+
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/route_manager", user, pass);
             System.out.println("Connected database successfully...");
@@ -36,7 +37,7 @@ public class Database {
                 Statement stmt = conn.createStatement();
                 String sql = "CREATE DATABASE route_manager";
                 stmt.executeUpdate(sql);
-                System.out.println("team.Database created successfully...");
+                System.out.println("Database created successfully...");
 
                 stmt.executeUpdate("CREATE TABLE PROFILES " +
                         "(id INTEGER not NULL AUTO_INCREMENT, " +
