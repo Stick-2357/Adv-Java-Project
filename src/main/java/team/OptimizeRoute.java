@@ -11,17 +11,25 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OptimizeRoute {
     public static void main(String[] args) throws IOException {
-        System.out.println(getOptimizedRoutes(new String[]{"Denver,CO", "Westminster,CO", "Boulder,CO"}));
+        ArrayList<Profile> profiles = new ArrayList<>();
+        profiles.add(new Profile(1, "joe", "", "", "117 N Eastglen DR, MO"));
+        profiles.add(new Profile(2, "", "", "", "Kansas City, MO"));
+        System.out.println(getOptimizedRoutes(profiles));
     }
 
-    public static List<Location> getOptimizedRoutes(String[] inputLocations) throws IOException {
+    public static List<Location> getOptimizedRoutes(ArrayList<Profile> inputProfiles) throws IOException {
+        ArrayList<String> inputLocations = (ArrayList<String>) inputProfiles.stream().map(profile -> profile.getAddress().replace(" ", "")).collect(Collectors.toList());
+
         // build http request
         String mapquestKey = PropertiesUtil.getProperties().getProperty("mapquestkey");
         String stringURL = "https://www.mapquestapi.com/directions/v2/optimizedroute?key=" + mapquestKey + "&json={\"locations\":[\"" + String.join("\",\"", inputLocations) + "\"]}";
+        System.out.println(stringURL);
 
         // call http request
         HttpURLConnection connection = (HttpURLConnection) new URL(stringURL).openConnection();
@@ -38,7 +46,8 @@ public class OptimizeRoute {
             connection.disconnect();
 
             return root.getRoute().getLocations();
+        } else {
+            throw new IOException("Bad return value: " + status);
         }
-        return new ArrayList<>();
     }
 }
