@@ -15,4 +15,8 @@ public class Profile {
         this.email = email;
         this.address = address;
     }
+
+    public Profile() {
+
+    }
 }

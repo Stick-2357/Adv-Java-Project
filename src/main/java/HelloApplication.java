@@ -10,19 +10,18 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
     }
-    List<Child> roster = new ArrayList<>();
+
+    List<Profile> roster = new ArrayList<>();
 
     @Override
     public void start(Stage stage) {
-        //HBox pane = new HBox(10);
-        //pane.setAlignment(Pos.CENTER);
-
         Button create = new Button("Create Roster");
         Button edit = new Button("Edit Roster");
         Button trip = new Button("Create Trip");
@@ -30,10 +29,10 @@ public class HelloApplication extends Application {
         HBox pane = new HBox(create, edit, trip);
         pane.setAlignment(Pos.CENTER);
 
-        RosterHandlerClass roster = new RosterHandlerClass();
+        NewChildHandlerClass roster = new NewChildHandlerClass();
         create.setOnAction(roster);
 
-        RosterEditHandlerClass editor = new RosterEditHandlerClass();
+        RosterHandlerClass editor = new RosterHandlerClass();
         edit.setOnAction(editor);
 
         TripHandlerClass tripMaker = new TripHandlerClass();
@@ -45,15 +44,15 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    class RosterHandlerClass implements EventHandler<ActionEvent>{
+    class NewChildHandlerClass implements EventHandler<ActionEvent> {
         @Override
-        public void handle(ActionEvent e){
+        public void handle(ActionEvent e) {
             TextField name = new TextField();
             TextField address = new TextField();
             TextField emergencyContact = new TextField();
             TextField emergencyEmail = new TextField();
             Label named = new Label();
-            Stage stage2 = new Stage();
+            Stage newStage = new Stage();
 
             GridPane pane2 = new GridPane();
             pane2.setAlignment(Pos.CENTER);
@@ -74,7 +73,7 @@ public class HelloApplication extends Application {
             create.setOnAction(actionEvent -> {
                 named.setText("");
 
-                Child kid = new Child(name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
+                Profile kid = new Profile(1, name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
 
                 roster.add(kid);
 
@@ -83,48 +82,52 @@ public class HelloApplication extends Application {
                 emergencyContact.clear();
                 emergencyEmail.clear();
 
-                named.setText(kid.GetName() + " added to roster.");
+                named.setText(kid.getName() + " added to roster.");
 
                 pane2.add(named, 0, 6);
             });
 
             Scene scene = new Scene(pane2);
-            stage2.setTitle("Add to Roster Information");
-            stage2.setScene(scene);
-            stage2.show();
+            newStage.setTitle("Add to Roster Information");
+            newStage.setScene(scene);
+            newStage.show();
         }
     }
 
-    class RosterEditHandlerClass implements EventHandler<ActionEvent>{
+    class RosterHandlerClass implements EventHandler<ActionEvent> {
         @Override
-        public void handle(ActionEvent e){
-            Stage stage3 = new Stage();
+        public void handle(ActionEvent e) {
+            Stage newStage = new Stage();
 
-            Child helper;
-            Button kid;
+            Profile child;
+            Button childButton;
 
             GridPane pane3 = new GridPane();
             pane3.setAlignment(Pos.CENTER);
             pane3.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
 
-            for(int i = 0; i < roster.size(); i++){
-                helper = roster.get(i);
+            for (int i = 0; i < roster.size(); i++) { // for each child
+                child = roster.get(i);
 
-                kid = new Button(helper.GetName());
+                childButton = new Button(child.getName()); // make a button
+                // TODO: store DB idea in button id
+//                childButton.setId(child.getId().toString()); // TODO: add null case
 
-                pane3.add(kid, 0, i);
+                pane3.add(childButton, 0, i);
 
-                Button finalKid = kid;
+                Button finalKid = childButton;
 
-                kid.setOnAction(actionEvent -> {
-                    Child helped = new Child();
+                childButton.setOnAction(actionEvent -> { // on button click
+                    // TODO: get child by button id
+//                    System.out.println(((Button) actionEvent.getSource()).getId());
+                    Profile helped = new Profile();
                     String names = finalKid.getText();
                     int needed = 0;
 
-                    for(int i1 = 0; i1 < roster.size(); i1++){
+                    for (int i1 = 0; i1 < roster.size(); i1++) {
                         helped = roster.get(i1);
 
-                        if(names == helped.GetName()){
+                        if (Objects.equals(names, helped.getName())) {
                             needed = i1;
                             break;
                         }
@@ -132,10 +135,10 @@ public class HelloApplication extends Application {
 
                     final int maybe = needed;
 
-                    TextField name = new TextField(helped.GetName());
-                    TextField address = new TextField(helped.GetAddress());
-                    TextField emergencyContact = new TextField(helped.GetPhone());
-                    TextField emergencyEmail = new TextField(helped.GetEmail());
+                    TextField name = new TextField(helped.getName());
+                    TextField address = new TextField(helped.getAddress());
+                    TextField emergencyContact = new TextField(helped.getEmergencyNum());
+                    TextField emergencyEmail = new TextField(helped.getEmail());
 
                     pane3.getChildren().clear();
                     //Clears the pane to allow next options to appear.
@@ -152,7 +155,7 @@ public class HelloApplication extends Application {
                     pane3.add(save, 1, 6);
 
                     save.setOnAction(actionEvent1 -> {
-                        Child thisOne = new Child(name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
+                        Profile thisOne = new Profile(null, name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
 
                         roster.set(maybe, thisOne);
 
@@ -165,16 +168,16 @@ public class HelloApplication extends Application {
             }
 
             Scene scene = new Scene(pane3);
-            stage3.setTitle("Select Roster Member to Edit");
-            stage3.setScene(scene);
-            stage3.show();
+            newStage.setTitle("Select Roster Member to Edit");
+            newStage.setScene(scene);
+            newStage.show();
         }
     }
 
-    class TripHandlerClass implements EventHandler<ActionEvent>{
+    class TripHandlerClass implements EventHandler<ActionEvent> {
         @Override
-        public void handle(ActionEvent e){
-            Stage stage4 = new Stage();
+        public void handle(ActionEvent e) {
+            Stage newStage = new Stage();
 
             // TODO: populate from getAllProfiles
 
@@ -189,65 +192,15 @@ public class HelloApplication extends Application {
             Button select = new Button("Generate Route");
 
             select.setOnAction((event) -> {
-               // TODO: Call GetOptimizedRoute passing selected child locations
+                // TODO: Call GetOptimizedRoute passing selected child locations
             });
 
             VBox pane4 = new VBox(but1, but2, but3, but4, but5, but6, but7, but8, select);
 
             Scene scene = new Scene(pane4);
-            stage4.setTitle("Select Member's for Trip");
-            stage4.setScene(scene);
-            stage4.show();
-        }
-    }
-
-    private class Child{
-        String name, address, phone, email;
-
-        public Child(){
-            name = "";
-            address = "";
-            phone = "";
-            email = "";
-        }
-
-        public Child(String newName, String newAddress, String newPhone, String newEmail){
-            name = newName;
-            address = newAddress;
-            phone = newPhone;
-            email = newEmail;
-        }
-
-        public void SetName(String updateName){
-            name = updateName;
-        }
-
-        public String GetName(){
-            return name;
-        }
-
-        public void SetAddress(String updateAddress){
-            address = updateAddress;
-        }
-
-        public String GetAddress(){
-            return address;
-        }
-
-        public void SetPhone(String updatePhone){
-            phone = updatePhone;
-        }
-
-        public String GetPhone(){
-            return phone;
-        }
-
-        public void SetEmail(String updateEmail){
-            email = updateEmail;
-        }
-
-        public String GetEmail(){
-            return email;
+            newStage.setTitle("Select Member's for Trip");
+            newStage.setScene(scene);
+            newStage.show();
         }
     }
 }
