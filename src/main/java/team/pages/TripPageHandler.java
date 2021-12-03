@@ -44,8 +44,8 @@ public class TripPageHandler implements EventHandler<ActionEvent> {
                 }
             }
             try {
-                System.out.println(selectedChildren);
                 System.out.println(OptimizeRoute.getOptimizedRoutes(selectedChildren));
+                // TODO: Display route info
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
