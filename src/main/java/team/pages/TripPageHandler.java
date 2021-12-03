@@ -7,8 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import team.Profile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TripPageHandler implements EventHandler<ActionEvent> {
     @Override
@@ -16,22 +18,24 @@ public class TripPageHandler implements EventHandler<ActionEvent> {
         Stage newStage = new Stage();
 
         // TODO: populate from getAllProfiles
+        ArrayList<CheckBox> children = new ArrayList<>();
+        for (int i = 0; i < RootApplication.roster.size(); i++) {
+            Profile child = RootApplication.roster.get(i);
+            CheckBox childCheckbox = new CheckBox(child.getName());
+            children.add(childCheckbox);
+        }
 
-        CheckBox but1 = new CheckBox("Child 1");
-        CheckBox but2 = new CheckBox("Child 2");
-        CheckBox but3 = new CheckBox("Child 3");
-        CheckBox but4 = new CheckBox("Child 4");
-        CheckBox but5 = new CheckBox("Child 5");
-        CheckBox but6 = new CheckBox("Child 6");
-        CheckBox but7 = new CheckBox("Child 7");
-        CheckBox but8 = new CheckBox("Child 8");
         Button select = new Button("Generate Route");
 
         select.setOnAction((event) -> {
             // TODO: Call GetOptimizedRoute passing selected child locations
         });
 
-        VBox pane4 = new VBox(but1, but2, but3, but4, but5, but6, but7, but8, select);
+        VBox pane4 = new VBox();
+        for (CheckBox checkBox : children) {
+            pane4.getChildren().add(checkBox);
+        }
+        pane4.getChildren().add(select);
 
         Scene scene = new Scene(pane4);
         newStage.setTitle("Select Member's for Trip");
