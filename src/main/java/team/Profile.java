@@ -1,7 +1,11 @@
+package team;
+
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class Profile {
+public class Profile implements Serializable {
     public Integer id;
     public String name;
     public String emergencyNum;

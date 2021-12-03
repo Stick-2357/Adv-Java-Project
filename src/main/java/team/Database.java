@@ -1,3 +1,5 @@
+package team;
+
 import java.sql.*;
 
 public class Database {
@@ -34,7 +36,7 @@ public class Database {
                 Statement stmt = conn.createStatement();
                 String sql = "CREATE DATABASE route_manager";
                 stmt.executeUpdate(sql);
-                System.out.println("Database created successfully...");
+                System.out.println("team.Database created successfully...");
 
                 stmt.executeUpdate("CREATE TABLE PROFILES " +
                         "(id INTEGER not NULL AUTO_INCREMENT, " +

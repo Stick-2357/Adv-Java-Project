@@ -1,9 +1,9 @@
-package objects;
+package team.jsonobjects;
 
 import lombok.Data;
 
 @Data
-public class StartPoint {
+public class Lr {
     double lng;
     double lat;
 }

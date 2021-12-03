@@ -1,7 +1,9 @@
+package team;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import objects.Location;
-import objects.Root;
+import team.jsonobjects.Location;
+import team.jsonobjects.Root;
 
 import java.io.BufferedReader;
 import java.io.IOException;

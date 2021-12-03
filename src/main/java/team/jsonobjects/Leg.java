@@ -1,33 +1,29 @@
-package objects;
+package team.jsonobjects;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class Route {
+public class Leg {
     boolean hasTollRoad;
     boolean hasBridge;
-    BoundingBox boundingBox;
+    String destNarrative;
     double distance;
     boolean hasTimedRestriction;
     boolean hasTunnel;
     boolean hasHighway;
-    List<Object> computedWaypoints;
-    RouteError routeError;
+    int index;
     String formattedTime;
-    String sessionId;
+    int origIndex;
     boolean hasAccessRestriction;
-    int realTime;
     boolean hasSeasonalClosure;
     boolean hasCountryCross;
-    double fuelUsed;
-    List<Leg> legs;
-    Options options;
-    List<Location> locations;
+    List<List<Object>> roadGradeStrategy;
+    int destIndex;
     int time;
     boolean hasUnpaved;
-    List<Integer> locationSequence;
+    String origNarrative;
+    List<Maneuver> maneuvers;
     boolean hasFerry;
 }
-
