@@ -1,41 +1,25 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HelloApplication extends Application {
-    public static Session session;
-
-    public static void main(String[] args) {
-        launch();
-    }
+    List<Child> roster = new ArrayList<Child>();
 
     @Override
-    public void start(Stage stage) {
-        // TODO: Attempt to connect to a server
-        try {
-            session = new Session();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // TODO: Continue to retry until connected
+    public void start(Stage stage) throws IOException {
+        //HBox pane = new HBox(10);
+        //pane.setAlignment(Pos.CENTER);
 
         Button create = new Button("Create Roster");
         Button edit = new Button("Edit Roster");
@@ -43,8 +27,6 @@ public class HelloApplication extends Application {
 
         HBox pane = new HBox(create, edit, trip);
         pane.setAlignment(Pos.CENTER);
-
-        // TODO: Do not show options until connected to a server
 
         RosterHandlerClass roster = new RosterHandlerClass();
         create.setOnAction(roster);
@@ -61,44 +43,55 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    static class RosterHandlerClass implements EventHandler<ActionEvent> {
+    public static void main(String[] args) {
+        launch();
+    }
+
+    class RosterHandlerClass implements EventHandler<ActionEvent>{
         @Override
-        public void handle(ActionEvent e) {
-            TextField firstName = new TextField();
-            TextField lastName = new TextField();
-            TextField middleInit = new TextField();
+        public void handle(ActionEvent e){
+            TextField name = new TextField();
             TextField address = new TextField();
-            TextField emergencyRelation = new TextField();
             TextField emergencyContact = new TextField();
+            TextField emergencyEmail = new TextField();
+            Label named = new Label();
             Stage stage2 = new Stage();
 
             GridPane pane2 = new GridPane();
             pane2.setAlignment(Pos.CENTER);
             pane2.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
 
-            pane2.add(new Label("First Name:"), 0, 0);
-            pane2.add(firstName, 1, 0);
-            pane2.add(new Label("Middle Initial:"), 0, 1);
-            pane2.add(middleInit, 1, 1);
-            pane2.add(new Label("Last Name:"), 0, 2);
-            pane2.add(lastName, 1, 2);
-            pane2.add(new Label("Address:"), 0, 3);
-            pane2.add(address, 1, 3);
-            pane2.add(new Label("Emergency Contact Relation:"), 0, 4); // TODO: Remove this field? May not be needed
-            pane2.add(emergencyRelation, 1, 4);
-            // TODO: Add email field? May not need to strore email
-            pane2.add(new Label("Emergency Contact:"), 0, 5);
-            pane2.add(emergencyContact, 1, 5);
+            pane2.add(new Label("Child Name:"), 0, 0);
+            pane2.add(name, 1, 0);
+            pane2.add(new Label("Address:"), 0, 1);
+            pane2.add(address, 1, 1);
+            pane2.add(new Label("Emergency Phone Number:"), 0, 2);
+            pane2.add(emergencyContact, 1, 2);
+            pane2.add(new Label("Emergency Email Address:"), 0, 3);
+            pane2.add(emergencyEmail, 1, 3);
+            pane2.add(named, 0, 6);
             Button create = new Button("Add to Roster");
             pane2.add(create, 1, 6);
 
-            create.setOnAction((event -> {
-                // TODO: Add input validation
-                // TODO: Convert input to profile
-                // name, emergencyNum, email, address
-                Profile newProfile = new Profile(null, "", "", "", "");
-                session.addProfile(newProfile);
-            }));
+            create.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    named.setText("");
+
+                    Child kid = new Child(name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
+
+                    roster.add(kid);
+
+                    name.clear();
+                    address.clear();
+                    emergencyContact.clear();
+                    emergencyEmail.clear();
+
+                    named.setText(kid.GetName() + " added to roster.");
+
+                    pane2.add(named, 0, 6);
+                }
+            });
 
             Scene scene = new Scene(pane2);
             stage2.setTitle("Add to Roster Information");
@@ -107,28 +100,81 @@ public class HelloApplication extends Application {
         }
     }
 
-    static class RosterEditHandlerClass implements EventHandler<ActionEvent> {
+    class RosterEditHandlerClass implements EventHandler<ActionEvent>{
         @Override
-        public void handle(ActionEvent e) {
+        public void handle(ActionEvent e){
             Stage stage3 = new Stage();
 
-            // TODO: populate from getAllProfiles
+            Child helper = new Child();
+            Button kid = new Button();
+            int crap = 0;
 
-            Button but1 = new Button("Child 1");
-            Button but2 = new Button("Child 2");
-            Button but3 = new Button("Child 3");
-            Button but4 = new Button("Child 4");
-            Button but5 = new Button("Child 5");
-            Button but6 = new Button("Child 6");
-            Button but7 = new Button("Child 7");
-            Button but8 = new Button("Child 8");
+            GridPane pane3 = new GridPane();
+            pane3.setAlignment(Pos.CENTER);
+            pane3.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
 
-            // TODO: Implement save button
-            // TODO: Implement editable fields
-            // TODO: Fill fields with child data on select
-            // TODO: Implement input validation
+            for(int i = 0; i < roster.size(); i++){
+                helper = roster.get(i);
 
-            VBox pane3 = new VBox(but1, but2, but3, but4, but5, but6, but7, but8);
+                kid = new Button(helper.GetName());
+
+                pane3.add(kid, 0, i);
+
+                Button finalKid = kid;
+
+                kid.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        Child helped = new Child();
+                        String names = finalKid.getText();
+                        int needed = 0;
+
+                        for(int i = 0; i < roster.size(); i++){
+                            helped = roster.get(i);
+
+                            if(names == helped.GetName()){
+                                needed = i;
+                                break;
+                            }
+                        }
+
+                        final int maybe = needed;
+
+                        TextField name = new TextField(helped.GetName());
+                        TextField address = new TextField(helped.GetAddress());
+                        TextField emergencyContact = new TextField(helped.GetPhone());
+                        TextField emergencyEmail = new TextField(helped.GetEmail());
+
+                        pane3.getChildren().clear();
+                        //Clears the pane to allow next options to appear.
+
+                        pane3.add(new Label("Child Name:"), 0, 0);
+                        pane3.add(name, 1, 0);
+                        pane3.add(new Label("Address:"), 0, 1);
+                        pane3.add(address, 1, 1);
+                        pane3.add(new Label("Emergency Phone Number:"), 0, 2);
+                        pane3.add(emergencyContact, 1, 2);
+                        pane3.add(new Label("Emergency Email Address:"), 0, 3);
+                        pane3.add(emergencyEmail, 1, 3);
+                        Button save = new Button("Save Edits");
+                        pane3.add(save, 1, 6);
+
+                        save.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                Child thisOne = new Child(name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
+
+                                roster.set(maybe, thisOne);
+
+                                name.clear();
+                                address.clear();
+                                emergencyContact.clear();
+                                emergencyEmail.clear();
+                            }
+                        });
+                    }
+                });
+            }
 
             Scene scene = new Scene(pane3);
             stage3.setTitle("Select Roster Member to Edit");
@@ -137,12 +183,10 @@ public class HelloApplication extends Application {
         }
     }
 
-    static class TripHandlerClass implements EventHandler<ActionEvent> {
+    class TripHandlerClass implements EventHandler<ActionEvent>{
         @Override
-        public void handle(ActionEvent e) {
+        public void handle(ActionEvent e){
             Stage stage4 = new Stage();
-
-            // TODO: populate from getAllProfiles
 
             CheckBox but1 = new CheckBox("Child 1");
             CheckBox but2 = new CheckBox("Child 2");
@@ -154,16 +198,62 @@ public class HelloApplication extends Application {
             CheckBox but8 = new CheckBox("Child 8");
             Button select = new Button("Generate Route");
 
-            select.setOnAction((event) -> {
-               // TODO: Call GetOptimizedRoute passing selected child locations
-            });
-
             VBox pane4 = new VBox(but1, but2, but3, but4, but5, but6, but7, but8, select);
 
             Scene scene = new Scene(pane4);
             stage4.setTitle("Select Member's for Trip");
             stage4.setScene(scene);
             stage4.show();
+        }
+    }
+
+    private class Child{
+        String name, address, phone, email;
+
+        public Child(){
+            name = "";
+            address = "";
+            phone = "";
+            email = "";
+        }
+
+        public Child(String newName, String newAddress, String newPhone, String newEmail){
+            name = newName;
+            address = newAddress;
+            phone = newPhone;
+            email = newEmail;
+        }
+
+        public void SetName(String updateName){
+            name = updateName;
+        }
+
+        public String GetName(){
+            return name;
+        }
+
+        public void SetAddress(String updateAddress){
+            address = updateAddress;
+        }
+
+        public String GetAddress(){
+            return address;
+        }
+
+        public void SetPhone(String updatePhone){
+            phone = updatePhone;
+        }
+
+        public String GetPhone(){
+            return phone;
+        }
+
+        public void SetEmail(String updateEmail){
+            email = updateEmail;
+        }
+
+        public String GetEmail(){
+            return email;
         }
     }
 }
