@@ -96,7 +96,7 @@ public class HelloApplication extends Application {
                 // TODO: Add input validation
                 // TODO: Convert input to profile
                 // name, emergencyNum, email, address
-                Profile newProfile = new Profile("", "", "", "");
+                Profile newProfile = new Profile(null, "", "", "", "");
                 session.addProfile(newProfile);
             }));
 
