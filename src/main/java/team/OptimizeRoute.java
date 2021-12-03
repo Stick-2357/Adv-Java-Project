@@ -24,7 +24,7 @@ public class OptimizeRoute {
     }
 
     public static List<Location> getOptimizedRoutes(ArrayList<Profile> inputProfiles) throws IOException {
-        ArrayList<String> inputLocations = (ArrayList<String>) inputProfiles.stream().map(Profile::getAddress).collect(Collectors.toList());
+        ArrayList<String> inputLocations = (ArrayList<String>) inputProfiles.stream().map(profile -> profile.getAddress().replace(" ", "")).collect(Collectors.toList());
 
         // build http request
         String mapquestKey = PropertiesUtil.getProperties().getProperty("mapquestkey");
