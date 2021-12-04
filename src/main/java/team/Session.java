@@ -13,9 +13,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+/**
+ * Semester Project
+ * Description : Session class to act as server side
+ */
 public class Session {
     Database database;
 
+    //Constructor starts Server socket and creates a Database object using PropertiesUtil data
     public Session() throws SQLException, ClassNotFoundException, IOException {
         Properties props = PropertiesUtil.getProperties();
         database = new Database(props.getProperty("mysqluser"), props.getProperty("mysqlpass"));
@@ -39,6 +44,7 @@ public class Session {
 
     }
 
+    //Runnable client class to be used in main thread process
     class HandleAClient implements Runnable {
         private Socket socket; // a connected socket
 
@@ -53,6 +59,7 @@ public class Session {
                 outputToClient.flush();
                 ObjectInputStream inputFromClient = new ObjectInputStream(socket.getInputStream());
 
+                //Listen for user input from button clicks, create new Request object based on behavior
                 while (true) {
                     AbstractRequest request = (AbstractRequest) inputFromClient.readObject();
                     System.out.println(request);
@@ -88,11 +95,12 @@ public class Session {
         }
     }
 
+    //Creates session
     public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
         Session session = new Session();
     }
 
-    // TODO: Add a getAllProfiles Method
+    //Creates and executes SQL statement to return comprehensive list of all existing profiles in database
     public ArrayList<Profile> getAllProfiles() {
         ArrayList<Profile> profiles = new ArrayList<>();
         try {
@@ -113,6 +121,7 @@ public class Session {
         return profiles;
     }
 
+    //Creates and executes SQL statement to add a new profile to the database
     public void addProfile(Profile profile) {
         try {
             Statement stmt = database.getStatement();
@@ -124,6 +133,7 @@ public class Session {
         }
     }
 
+    //Creates and exectues SQL statement to update a profile's information in the database
     public void editProfile(Profile profile) {
         try {
             Statement stmt = database.getStatement();
@@ -140,6 +150,7 @@ public class Session {
         }
     }
 
+    //Creates and executes SQL statement to drop a profile from the database
     public void deleteProfile(Profile profile) {
         try {
             Statement stmt = database.getStatement();
