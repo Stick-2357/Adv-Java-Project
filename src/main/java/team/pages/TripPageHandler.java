@@ -8,12 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import team.OptimizeRoute;
 import team.Profile;
+import team.jsonobjects.Location;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class TripPageHandler implements EventHandler<ActionEvent> {
@@ -44,9 +44,10 @@ public class TripPageHandler implements EventHandler<ActionEvent> {
                 }
             }
             try {
-                System.out.println(OptimizeRoute.getOptimizedRoutes(selectedChildren));
+                List<Location> locations = RootApplication.getRoute(selectedChildren);
+                System.out.println(locations);
                 // TODO: Display route info
-            } catch (IOException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
         });
@@ -65,6 +66,4 @@ public class TripPageHandler implements EventHandler<ActionEvent> {
         }));
         newStage.show();
     }
-
-
 }

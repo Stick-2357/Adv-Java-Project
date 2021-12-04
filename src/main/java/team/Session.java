@@ -1,6 +1,7 @@
 package team;
 
 import team.requests.AbstractRequest;
+import team.requests.GetRouteRequest;
 import team.requests.NewChildRequest;
 import team.requests.UpdateChildRequest;
 
@@ -16,7 +17,7 @@ import java.util.Properties;
 public class Session {
     Database database;
 
-    public Session() throws SQLException, ClassNotFoundException, IOException {
+    public Session() throws ClassNotFoundException, IOException {
         Properties props = PropertiesUtil.getProperties();
         database = new Database(props.getProperty("mysqluser"), props.getProperty("mysqlpass"));
 
@@ -67,14 +68,13 @@ public class Session {
                             break;
                         }
                         case "Update Child": {
-                            System.out.println("recieved update request");
                             UpdateChildRequest updateChildRequest = (UpdateChildRequest) request;
                             editProfile(updateChildRequest.getProfile());
-                            System.out.println("Finished");
                             break;
                         }
                         case "Get Route": {
-
+                            GetRouteRequest getRouteRequest = (GetRouteRequest) request;
+                            outputToClient.writeObject(OptimizeRoute.getOptimizedRoutes(getRouteRequest.getChildren()));
                             break;
                         }
                         default: {
