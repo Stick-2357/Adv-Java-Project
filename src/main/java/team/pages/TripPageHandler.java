@@ -57,6 +57,11 @@ public class TripPageHandler implements EventHandler<ActionEvent> {
             //This creates a list of selected check boxes.
             try {
                 Route route = RootApplication.getRoute(selectedChildren);
+                for (Node node : right.getChildren()) {
+                    if (node.getClass() == Label.class) {
+                        ((Label) node).setText("");
+                    }
+                }
 
                 ArrayList<Integer> order = route.getLocationSequence();
                 for (int i = 0; i < order.size(); i++) {

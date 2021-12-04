@@ -47,7 +47,7 @@ public class OptimizeRoute {
             in.close();
             connection.disconnect();
 
-            System.out.println(root);
+            System.out.println(root.getRoute().getLocationSequence());
             return root.getRoute();
         } else {
             throw new IOException("Bad return value: " + status);
