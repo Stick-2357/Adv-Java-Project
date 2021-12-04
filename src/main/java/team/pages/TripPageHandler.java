@@ -1,3 +1,6 @@
+//This is the menu for making the selections to generate the trip.
+//A minimum of three roster members should be chosen for the best, simple, results.
+
 package team.pages;
 
 import javafx.event.ActionEvent;
@@ -37,6 +40,7 @@ public class TripPageHandler implements EventHandler<ActionEvent> {
             Label resultLabel = new Label("");
             right.getChildren().add(resultLabel);
         }
+        //This creates the list of checkBoxes for selecting the roster members.
 
         Button select = new Button("Generate Route");
         select.setOnAction((event) -> {
@@ -51,6 +55,7 @@ public class TripPageHandler implements EventHandler<ActionEvent> {
                     }
                 }
             }
+            //This creates a list of selected check boxes.
             try {
                 Route route = RootApplication.getRoute(selectedChildren);
 
@@ -64,10 +69,13 @@ public class TripPageHandler implements EventHandler<ActionEvent> {
             } catch (IOException | ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
+            //This generates the route and displays it on the right side on the pane.
         });
+        //This defines what happens when the User clicks the "Generate Route" button.
 
         left.getChildren().add(childrenVBox);
         left.getChildren().add(select);
+        //These place the checkboxes and button on the left side of the pane.
 
         Scene scene = new Scene(rootHBox);
         newStage.setTitle("Select Member's for Trip");
@@ -80,5 +88,6 @@ public class TripPageHandler implements EventHandler<ActionEvent> {
             }
         }));
         newStage.show();
+        //These start the display of the GenerateTrip stage.
     }
 }

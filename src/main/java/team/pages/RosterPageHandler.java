@@ -1,3 +1,6 @@
+//This is the menu editing a previously entered roster member.
+//It only allows the editing of one Profile at a time.
+
 package team.pages;
 
 import javafx.event.ActionEvent;
@@ -23,10 +26,12 @@ public class RosterPageHandler implements EventHandler<ActionEvent> {
 
         Profile child;
         Button childButton;
+        //These set temp variables for ease of use later.
 
         GridPane pane3 = new GridPane();
         pane3.setAlignment(Pos.CENTER);
         pane3.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
+        //This creates the pane that displays the Edit Roster menu.
 
         for (int i = 0; i < RootApplication.roster.size(); i++) { // for each child
             child = RootApplication.roster.get(i);
@@ -35,17 +40,20 @@ public class RosterPageHandler implements EventHandler<ActionEvent> {
             childButton.setId(child.getId().toString()); // TODO: add null case
 
             pane3.add(childButton, 0, i);
+            //The above creates a button, sets its ID, and adds it to the pane.
 
             childButton.setOnAction(actionEvent -> { // on button click
                 // TODO: get child by button id
                 int childID = Integer.parseInt(((Button) actionEvent.getSource()).getId());
                 Profile childClicked = RootApplication.roster.stream().filter(c -> c.getId() == childID).collect(Collectors.toList()).get(0);
+                //This allows for access of the Profile object so its information can be displayed in the text boxes.
 
                 TextField name = new TextField(childClicked.getName());
                 TextField address = new TextField(childClicked.getAddress());
                 TextField emergencyContact = new TextField(childClicked.getEmergencyNum());
                 TextField emergencyEmail = new TextField(childClicked.getEmail());
                 Label named = new Label();
+                //These create name shortcuts for later use and populate them with the Profile elements.
 
                 pane3.getChildren().clear();
                 //Clears the pane to allow next options to appear.
@@ -61,6 +69,8 @@ public class RosterPageHandler implements EventHandler<ActionEvent> {
                 pane3.add(named, 0, 6);
                 Button save = new Button("Save Edits");
                 pane3.add(save, 1, 6);
+                //These display everything needed to edit the roster Profile.
+                //It mimics the AddRoster for ease of use and familiarities' sake.
 
                 save.setOnAction(actionEvent1 -> {
                     named.setText("");
@@ -80,8 +90,11 @@ public class RosterPageHandler implements EventHandler<ActionEvent> {
                     emergencyContact.clear();
                     emergencyEmail.clear();
                 });
+                //This saves the updated Profile in the roster.
             });
         }
+        //This loops through adding Profile selections to the edit selection screen.
+        //It also handles them being edited.
 
         Scene scene = new Scene(pane3);
         newStage.setTitle("Select Roster Member to Edit");
@@ -94,5 +107,6 @@ public class RosterPageHandler implements EventHandler<ActionEvent> {
             }
         }));
         newStage.show();
+        //These start the display of the EditRoster stage.
     }
 }
