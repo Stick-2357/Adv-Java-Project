@@ -7,7 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import team.Profile;
+import team.jsonobjects.Location;
 import team.requests.GetRosterRequest;
+import team.requests.GetRouteRequest;
 import team.requests.NewChildRequest;
 import team.requests.UpdateChildRequest;
 
@@ -16,6 +18,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RootApplication extends Application {
     static ArrayList<Profile> roster = new ArrayList<>();
@@ -78,5 +81,10 @@ public class RootApplication extends Application {
 
     public static void updateChild(Profile profile) throws IOException, ClassNotFoundException {
         outputToServer.writeObject(new UpdateChildRequest(profile));
+    }
+
+    public static List<Location> getRoute(ArrayList<Profile> profiles) throws IOException, ClassNotFoundException {
+        outputToServer.writeObject(new GetRouteRequest(profiles));
+        return (List<Location>) inputFromServer.readObject();
     }
 }

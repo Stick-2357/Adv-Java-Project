@@ -36,8 +36,6 @@ public class RosterPageHandler implements EventHandler<ActionEvent> {
 
             pane3.add(childButton, 0, i);
 
-            Button finalKid = childButton;
-
             childButton.setOnAction(actionEvent -> { // on button click
                 // TODO: get child by button id
                 int childID = Integer.parseInt(((Button) actionEvent.getSource()).getId());
