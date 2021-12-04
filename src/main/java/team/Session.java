@@ -14,13 +14,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+/**
+ * Semester Project
+ * Description: Session driver class to act as server side
+ */
+
 public class Session {
     Database database;
 
-    public Session() throws ClassNotFoundException, IOException {
+    //Constructor that starts the Server socket and instantiates the database object using PropertiesUtil data
+    public Session() throws SQLException, ClassNotFoundException, IOException {
         Properties props = PropertiesUtil.getProperties();
         database = new Database(props.getProperty("mysqluser"), props.getProperty("mysqlpass"));
 
+        //Start new thread to start listening for client connections
         new Thread(() -> {
             try {
                 // create a server socket
@@ -40,6 +47,7 @@ public class Session {
 
     }
 
+    //Runnable client class to be used and handled by main thread process
     class HandleAClient implements Runnable {
         private Socket socket; // a connected socket
 
@@ -54,6 +62,7 @@ public class Session {
                 outputToClient.flush();
                 ObjectInputStream inputFromClient = new ObjectInputStream(socket.getInputStream());
 
+                //Create new Request object based on user behavior
                 while (true) {
                     AbstractRequest request = (AbstractRequest) inputFromClient.readObject();
                     System.out.println(request);
@@ -88,11 +97,12 @@ public class Session {
         }
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, IOException {
+    //Main driver function that creates Session object
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
         Session session = new Session();
     }
 
-    // TODO: Add a getAllProfiles Method
+    //Creates and executes SQL statement to return a comprehensive list of profiles from the database
     public ArrayList<Profile> getAllProfiles() {
         ArrayList<Profile> profiles = new ArrayList<>();
         try {
@@ -113,6 +123,7 @@ public class Session {
         return profiles;
     }
 
+    //Creates and executes SQL statement to add a profile to the database
     public void addProfile(Profile profile) {
         try {
             Statement stmt = database.getStatement();
@@ -124,6 +135,7 @@ public class Session {
         }
     }
 
+    //Creates and executes SQL statement to edit an existing profile in the database
     public void editProfile(Profile profile) {
         try {
             Statement stmt = database.getStatement();
@@ -140,6 +152,7 @@ public class Session {
         }
     }
 
+    //Creates and executes SQL statement to drop a profile from the database
     public void deleteProfile(Profile profile) {
         try {
             Statement stmt = database.getStatement();

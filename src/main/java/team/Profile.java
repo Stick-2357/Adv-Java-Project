@@ -4,6 +4,11 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * Semester Project
+ * Description: Profile object to store information for each child
+ */
+
 @Data
 public class Profile implements Serializable {
     public Integer id;
@@ -12,6 +17,7 @@ public class Profile implements Serializable {
     public String email;
     public String address;
 
+    //Main constructor
     public Profile(Integer id, String name, String emergencyNum, String email, String address) {
         this.id = id;
         this.name = name;
@@ -20,6 +26,7 @@ public class Profile implements Serializable {
         this.address = address;
     }
 
+    //Default constructor
     public Profile() {
 
     }

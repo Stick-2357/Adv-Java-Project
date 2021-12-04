@@ -2,20 +2,28 @@ package team;
 
 import java.sql.*;
 
+/**
+* Semester Project
+ * Description: Main database class that instantiates database driver and connects to MySQL session
+ */
+
 public class Database {
     Connection conn;
 
+    //Constructor instantiates JDBC driver and tries to connect to database
     public Database(String user, String pass) throws ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         System.out.println("Driver loaded");
 
         System.out.println("Connecting to a selected database...");
 
+        //Try to connect to database
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/route_manager", user, pass);
             System.out.println("Connected database successfully...");
             Statement stmt = conn.createStatement();
 
+            //If table doesn't exist, create it, otherwise move on
             if (tableExistsSQL(conn, "profiles")) {
                 System.out.println("Table exists, moving on...");
             } else {
@@ -29,6 +37,7 @@ public class Database {
                         "PRIMARY KEY ( id ))");
                 System.out.println("Table created successfully...");
             }
+        //If database does not exist, create it and the corresponding table
         } catch (SQLException e) {
             e.printStackTrace();
             try {
@@ -52,19 +61,13 @@ public class Database {
         }
     }
 
+    //Returns an SQL statement object to be handled by parent method
     public Statement getStatement() throws SQLException {
         Statement statement = this.conn.createStatement();
         return statement;
     }
 
-    public void showData() throws SQLException {
-        Statement statement = this.conn.createStatement();
-        ResultSet rs = statement.executeQuery("Show tables");
-        while(rs.next()) {
-            System.out.print(rs.getString(1));
-        }
-    }
-
+    //Helper function to check for existing table in database
     static boolean tableExistsSQL(Connection connection, String tableName) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(*) "
                 + "FROM information_schema.tables "
