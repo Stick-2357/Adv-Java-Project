@@ -61,8 +61,7 @@ public class RootApplication extends Application {
             Button trip = new Button("Create Trip");
             //These are the definitions for the main menu buttons.
 
-            // TODO: Come up with a name for the program
-            Label welcome = new Label("Welcome to INSERT NAME HERE");
+            Label welcome = new Label("Welcome to Route Optimizer");
             welcome.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
             Label instructions = new Label("Please begin by clicking \"Create Roster\"");
             instructions.setFont(Font.font("Times New Roman", FontPosture.ITALIC, 12));

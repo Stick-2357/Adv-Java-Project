@@ -30,7 +30,6 @@ public class TripPageHandler implements EventHandler<ActionEvent> {
         VBox right = new VBox();
         HBox rootHBox = new HBox(left, right);
 
-        // TODO: populate from getAllProfiles
         VBox childrenVBox = new VBox();
         for (int i = 0; i < RootApplication.roster.size(); i++) {
             Profile child = RootApplication.roster.get(i);
@@ -63,9 +62,6 @@ public class TripPageHandler implements EventHandler<ActionEvent> {
                 for (int i = 0; i < order.size(); i++) {
                     ((Label) right.getChildren().get(i)).setText(selectedChildren.get(order.get(i)).getAddress());
                 }
-
-//                System.out.println(route);
-                // TODO: Display route info
             } catch (IOException | ClassNotFoundException ex) {
                 ex.printStackTrace();
             }

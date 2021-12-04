@@ -43,7 +43,6 @@ public class RosterPageHandler implements EventHandler<ActionEvent> {
             //The above creates a button, sets its ID, and adds it to the pane.
 
             childButton.setOnAction(actionEvent -> { // on button click
-                // TODO: get child by button id
                 int childID = Integer.parseInt(((Button) actionEvent.getSource()).getId());
                 Profile childClicked = RootApplication.roster.stream().filter(c -> c.getId() == childID).collect(Collectors.toList()).get(0);
                 //This allows for access of the Profile object so its information can be displayed in the text boxes.
