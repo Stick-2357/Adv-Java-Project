@@ -64,7 +64,7 @@ public class RosterPageHandler implements EventHandler<ActionEvent> {
 
                 save.setOnAction(actionEvent1 -> {
                     named.setText("");
-                    Profile thisOne = new Profile(childID, name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
+                    Profile thisOne = new Profile(childID, name.getText(), emergencyContact.getText(), emergencyEmail.getText(), address.getText());
 
                     try {
                         System.out.println("Sending update request");

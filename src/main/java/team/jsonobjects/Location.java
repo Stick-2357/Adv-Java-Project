@@ -2,8 +2,10 @@ package team.jsonobjects;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class Location {
+public class Location implements Serializable  {
     boolean dragPoint;
     DisplayLatLng displayLatLng;
     String adminArea4;
@@ -22,4 +24,8 @@ public class Location {
     String adminArea1Type;
     String adminArea3Type;
     LatLng latLng;
+
+//    public String getCleanAddress() {
+//        return
+//    }
 }

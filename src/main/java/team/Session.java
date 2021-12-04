@@ -88,7 +88,7 @@ public class Session {
         }
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
         Session session = new Session();
     }
 

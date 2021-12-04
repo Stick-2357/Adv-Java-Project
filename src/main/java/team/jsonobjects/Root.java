@@ -2,8 +2,10 @@ package team.jsonobjects;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class Root {
+public class Root implements Serializable {
     Route route;
     Info info;
 }

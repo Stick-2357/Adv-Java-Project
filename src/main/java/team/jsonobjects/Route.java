@@ -2,10 +2,12 @@ package team.jsonobjects;
 
 import lombok.Data;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Route {
+public class Route implements Serializable {
     boolean hasTollRoad;
     boolean hasBridge;
     BoundingBox boundingBox;
@@ -13,7 +15,7 @@ public class Route {
     boolean hasTimedRestriction;
     boolean hasTunnel;
     boolean hasHighway;
-    List<Object> computedWaypoints;
+    ArrayList<Object> computedWaypoints;
     RouteError routeError;
     String formattedTime;
     String sessionId;
@@ -22,12 +24,12 @@ public class Route {
     boolean hasSeasonalClosure;
     boolean hasCountryCross;
     double fuelUsed;
-    List<Leg> legs;
+    ArrayList<Leg> legs;
     Options options;
-    List<Location> locations;
+    ArrayList<Location> locations;
     int time;
     boolean hasUnpaved;
-    List<Integer> locationSequence;
+    ArrayList<Integer> locationSequence;
     boolean hasFerry;
 }
 

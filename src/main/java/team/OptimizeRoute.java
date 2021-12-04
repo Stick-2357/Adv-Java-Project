@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import team.jsonobjects.Location;
 import team.jsonobjects.Root;
+import team.jsonobjects.Route;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,12 +19,13 @@ import java.util.stream.Collectors;
 public class OptimizeRoute {
     public static void main(String[] args) throws IOException {
         ArrayList<Profile> profiles = new ArrayList<>();
+        profiles.add(new Profile(5, "temp", "", "", "Lone Star, MO"));
         profiles.add(new Profile(1, "joe", "", "", "117 N Eastglen DR, MO"));
         profiles.add(new Profile(2, "", "", "", "Kansas City, MO"));
         System.out.println(getOptimizedRoutes(profiles));
     }
 
-    public static List<Location> getOptimizedRoutes(ArrayList<Profile> inputProfiles) throws IOException {
+    public static Route getOptimizedRoutes(ArrayList<Profile> inputProfiles) throws IOException {
         ArrayList<String> inputLocations = (ArrayList<String>) inputProfiles.stream().map(profile -> profile.getAddress().replace(" ", "")).collect(Collectors.toList());
 
         // build http request
@@ -45,7 +47,8 @@ public class OptimizeRoute {
             in.close();
             connection.disconnect();
 
-            return root.getRoute().getLocations();
+            System.out.println(root);
+            return root.getRoute();
         } else {
             throw new IOException("Bad return value: " + status);
         }

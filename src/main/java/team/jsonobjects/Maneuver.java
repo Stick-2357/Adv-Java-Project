@@ -2,10 +2,11 @@ package team.jsonobjects;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class Maneuver {
+public class Maneuver implements Serializable {
     double distance;
     List<String> streets;
     String narrative;

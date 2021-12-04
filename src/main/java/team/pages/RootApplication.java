@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import team.Profile;
 import team.jsonobjects.Location;
+import team.jsonobjects.Route;
 import team.requests.GetRosterRequest;
 import team.requests.GetRouteRequest;
 import team.requests.NewChildRequest;
@@ -41,8 +42,6 @@ public class RootApplication extends Application {
             outputToServer.flush();
             inputFromServer = new ObjectInputStream(socket.getInputStream());
 
-
-            // TODO: Go to HomePage when connected
             Button create = new Button("Create Roster");
             Button edit = new Button("Edit Roster");
             Button trip = new Button("Create Trip");
@@ -83,8 +82,8 @@ public class RootApplication extends Application {
         outputToServer.writeObject(new UpdateChildRequest(profile));
     }
 
-    public static List<Location> getRoute(ArrayList<Profile> profiles) throws IOException, ClassNotFoundException {
+    public static Route getRoute(ArrayList<Profile> profiles) throws IOException, ClassNotFoundException {
         outputToServer.writeObject(new GetRouteRequest(profiles));
-        return (List<Location>) inputFromServer.readObject();
+        return (Route) inputFromServer.readObject();
     }
 }

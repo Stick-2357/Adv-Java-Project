@@ -2,10 +2,11 @@ package team.jsonobjects;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class Options {
+public class Options implements Serializable {
     List<Object> arteryWeights;
     int cyclingRoadFactor;
     int timeType;

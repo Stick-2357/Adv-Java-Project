@@ -43,7 +43,7 @@ public class NewChildPageHandler implements EventHandler<ActionEvent> {
         create.setOnAction(actionEvent -> {
             named.setText("");
 
-            Profile kid = new Profile(1, name.getText(), address.getText(), emergencyContact.getText(), emergencyEmail.getText());
+            Profile kid = new Profile(1, name.getText(), emergencyContact.getText(), emergencyEmail.getText(), address.getText());
 
             try {
                 RootApplication.addChild(kid);
